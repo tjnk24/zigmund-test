@@ -45,7 +45,7 @@ const SearchForm: FC = () => {
       >
         <InputGroup>
           <FormControl
-            placeholder="Type organization's name here"
+            placeholder="organization's name here"
           />
           <InputGroup.Append>
             <Button

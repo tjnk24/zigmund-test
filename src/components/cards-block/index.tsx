@@ -18,20 +18,25 @@ const CardsBlock: FC = () => {
     organization,
   } = state;
 
-  const getPlaceholder = () => {
-    if (loading) {
+  const getPlaceholder = (isLoading: boolean, error: string) => {
+    if (isLoading) {
       return <Spinner animation="border"/>
     }
-    if (errorMessage) {
-      return <div>{errorMessage}</div>
+    if (error) {
+      return <div>{error}</div>
     }
-    return <div>Type in organization's name in the field above, for example: facebook or airbnb</div>
+    return (
+      <div>
+        Type in organization's name in the field above,
+        for example: facebook or airbnb
+      </div>
+      )
   }
 
-  const getOrganizationName = () => {
-    const firstLetter = organization.charAt(0);
+  const getOrganizationName = (name: string) => {
+    const firstLetter = name.charAt(0);
 
-    return organization.replace(firstLetter, firstLetter.toUpperCase());
+    return name.replace(firstLetter, firstLetter.toUpperCase());
   }
 
   const mapCards = (reposArray: Repo[]) => reposArray.map(
@@ -48,12 +53,12 @@ const CardsBlock: FC = () => {
         !success
         ? (
           <Placeholder>
-            { getPlaceholder() }
+            { getPlaceholder(loading, errorMessage) }
           </Placeholder>
         ) : (
           <>
             <InfoWrapper>
-              <h3>{ getOrganizationName() }</h3>
+              <h3>{ getOrganizationName(organization) }</h3>
               <span>Repos count: {repos.length}</span>
             </InfoWrapper>
             { mapCards(repos) }
