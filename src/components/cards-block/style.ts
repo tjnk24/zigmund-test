@@ -12,3 +12,9 @@ export const CardsWrapper = styled.div`
 export const InfoWrapper = styled.div`
   margin: 20px;
 `;
+
+export const Placeholder = styled.div`
+  margin: 50px;
+  text-align: center;
+  color: #6c757d;
+`;
