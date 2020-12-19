@@ -68,6 +68,6 @@ const CardsBlock: FC = () => {
       }
     </CardsWrapper>
   );
-};
+}
 
 export default CardsBlock;
