@@ -73,6 +73,8 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'],
     alias: {
       '@components': path.resolve(__dirname, 'src', 'components'),
+      '@store': path.resolve(__dirname, 'src', 'store'),
+      '@common': path.resolve(__dirname, 'src', 'common'),
     },
   },
   plugins: [

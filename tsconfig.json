@@ -11,6 +11,8 @@
         "baseUrl": ".",
         "paths": {
             "@components/*": ["src/components/*"],
+            "@store/*": ["src/store/*"],
+            "@common/*": ["src/common/*"],
         }
     }
 }
