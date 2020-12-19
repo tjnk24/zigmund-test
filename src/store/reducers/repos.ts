@@ -6,6 +6,7 @@ const initialState: RepoState = {
   organization: '',
   repos: [],
   loading: false,
+  success: false,
   errorMessage: '',
 };
 
@@ -14,7 +15,9 @@ const reposReducer = (state = initialState, action: ReposActionTypes) => {
     case REPOS_FETCH_START: {
       return {
         ...state,
+        success: false,
         loading: true,
+        errorMessage: '',
       };
     }
     case REPOS_FETCH_SUCCESS: {
@@ -23,6 +26,7 @@ const reposReducer = (state = initialState, action: ReposActionTypes) => {
         ...state,
         organization,
         repos,
+        success: true,
         loading: false,
       }
     }

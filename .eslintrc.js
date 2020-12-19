@@ -22,7 +22,7 @@ module.exports = {
     ],
     "rules": {
         'jsx-a11y/no-static-element-interactions': 'off',
-        'no-unused-vars': 'off',
+        'no-unused-vars': 'warning',
         'import/no-dynamic-require': 'off',
         'import/no-unresolved': 'off',
         'import/extensions': 'off',

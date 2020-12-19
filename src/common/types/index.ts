@@ -1,4 +1,5 @@
 export type Repo = {
+  id: number;
   name: string;
   url: string;
   forksCount: number;
@@ -10,5 +11,6 @@ export type RepoState = {
   organization: string;
   repos: Repo[];
   loading: boolean;
+  success: boolean;
   errorMessage: string;
 }

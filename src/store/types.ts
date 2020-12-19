@@ -20,4 +20,13 @@ export interface IGetRposErrorAction {
   type: typeof REPOS_FETCH_ERROR;
 }
 
+export type RepoResponse = {
+  id: number;
+  name: string;
+  html_url: string;
+  forks_count: number
+  watchers_count: number;
+  stargazers_count: number;
+}
+
 export type ReposActionTypes = IGetReposAction | IGetReposSuccessAction | IGetRposErrorAction;
