@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import CardItem from '@components/card';
 import PaginationBlock from '@components/pagination';
+import { Repo, RepoState } from '@common/types';
 
 import { CardsWrapper, InfoWrapper, Placeholder } from './style';
-import { Repo, RepoState } from '@common/types';
 
 const CardsBlock: FC = () => {
   const state = useSelector((state: RepoState) => state);
@@ -14,23 +14,25 @@ const CardsBlock: FC = () => {
     loading,
     success,
     errorMessage,
-    repos,
     organization,
+    repos,
   } = state;
 
-  const getPlaceholder = (isLoading: boolean, error: string) => {
-    if (isLoading) {
+  const getPlaceholder = (isLoading: boolean, error: string, reposArr: Repo[]) => {
+    if (isLoading && !reposArr.length) {
       return <Spinner animation="border"/>
     }
     if (error) {
       return <div>{error}</div>
     }
-    return (
-      <div>
-        Type in organization's name in the field above,
-        for example: facebook or airbnb
-      </div>
-      )
+    if (!reposArr.length) {
+      return (
+        <div>
+          Type in organization's name in the field above,
+          for example: facebook or airbnb
+        </div>
+        )
+    }
   }
 
   const getOrganizationName = (name: string) => {
@@ -50,20 +52,19 @@ const CardsBlock: FC = () => {
   return (
     <CardsWrapper>
       {
-        !success
+        success || repos.length
         ? (
-          <Placeholder>
-            { getPlaceholder(loading, errorMessage) }
-          </Placeholder>
-        ) : (
           <>
             <InfoWrapper>
               <h3>{ getOrganizationName(organization) }</h3>
-              <span>Repos count: {repos.length}</span>
             </InfoWrapper>
             { mapCards(repos) }
             <PaginationBlock />
           </>
+        ) : (
+          <Placeholder>
+            { getPlaceholder(loading, errorMessage, repos) }
+          </Placeholder>
         )
       }
     </CardsWrapper>

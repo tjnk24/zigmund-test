@@ -5,6 +5,7 @@ import { ReposActionTypes } from '@store/types';
 const initialState: RepoState = {
   organization: '',
   repos: [],
+  pagination: null,
   loading: false,
   success: false,
   errorMessage: '',
@@ -21,11 +22,12 @@ const reposReducer = (state = initialState, action: ReposActionTypes) => {
       };
     }
     case REPOS_FETCH_SUCCESS: {
-      const { organization, repos } = action.payload;
+      const { organization, repos, pagination } = action.payload;
       return {
         ...state,
         organization,
         repos,
+        pagination,
         success: true,
         loading: false,
       }

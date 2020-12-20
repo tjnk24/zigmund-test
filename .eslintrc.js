@@ -22,10 +22,9 @@ module.exports = {
     ],
     "rules": {
         'jsx-a11y/no-static-element-interactions': 'off',
-        'no-unused-vars': 'warning',
         'import/no-dynamic-require': 'off',
-        'import/no-unresolved': 'off',
         'import/extensions': 'off',
+        'react/prop-types': 'off',
         'react/jsx-filename-extension': [
             'error',
             {

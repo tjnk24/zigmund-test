@@ -9,6 +9,8 @@ import StyledForm from './style';
 import getRepos from '@store/actions/get-repos';
 import { useDispatch } from 'react-redux';
 
+const pageLimit = 8;
+
 const SearchForm: FC = () => {
   const dispatch = useDispatch();
 
@@ -18,8 +20,10 @@ const SearchForm: FC = () => {
     event.preventDefault();
     const input = event.target.elements[0] as HTMLInputElement;
 
-    if (input.value.trim()) {
-      dispatch(getRepos(input.value.trim()));
+    const value = input.value.trim()
+
+    if (value) {
+      dispatch(getRepos(value, 1, pageLimit));
     } else {
       setShowTooltip(true);
     }

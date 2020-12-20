@@ -1,47 +1,49 @@
 import Axios from 'axios';
 import { put, takeLatest, all } from 'redux-saga/effects';
+import parseLinks from 'parse-link-header';
 import { REPOS_FETCH_START, REPOS_FETCH_SUCCESS, REPOS_FETCH_ERROR } from '@store/constants';
 import { IGetReposAction, RepoResponse } from '@store/types';
-import { Repo } from '@common/types';
 
 function* fetchRepos(action: IGetReposAction) {
-  const { organization } = action.payload;
+  const { organization, pageNumber, pageLimit } = action.payload;
 
   try {
-    let page = 1;
-    let result: Repo[] = [];
-    let fetch = true;
+    const response = yield Axios
+      .get(`https://api.github.com/orgs/${organization}/repos?page=${pageNumber}&per_page=${pageLimit}`)
+      .then((response) => {
+        const links = parseLinks(response.headers.link);
 
-    while(fetch) {
-      const response = yield Axios.get(`https://api.github.com/orgs/${organization}/repos?page=${page}`);
+        return {
+          repos: response.data,
+          pagination: {
+            current: pageNumber,
+            first: links.first?.page || null,
+            prev: links.prev?.page || null,
+            next: links.next?.page || null,
+            last: links.last?.page || null,
+          }
+        };
+      });
 
-      if (response.data.length) {
-        const filteredResponse = response.data.map((repo: RepoResponse) => ({
-          id: repo.id,
-          name: repo.name,
-          url: repo.html_url,
-          forksCount: repo.forks_count,
-          watchersCount: repo.watchers_count,
-          stargazersCount: repo.stargazers_count,
-        }));
+    const { repos, pagination } = response;
 
-        result = [
-          ...result,
-          ...filteredResponse
-        ]
-
-        page = page + 1;
-
-      } else {
-        fetch = false;
-      }
+    if (repos.length) {
+      repos.map((repo: RepoResponse) => ({
+        id: repo.id,
+        name: repo.name,
+        url: repo.html_url,
+        forksCount: repo.forks_count,
+        watchersCount: repo.watchers_count,
+        stargazersCount: repo.stargazers_count,
+      }));
     }
 
     yield put({
       type: REPOS_FETCH_SUCCESS,
       payload: {
         organization,
-        repos: result,
+        pagination,
+        repos,
       },
     });
   }

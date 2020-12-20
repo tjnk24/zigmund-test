@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import SearchForm from '@components/search-form';
 
 import HeaderWrapper from './style';
 
-const Header = () => {
+const Header: FC = () => {
   return (
     <HeaderWrapper>
       <h3>

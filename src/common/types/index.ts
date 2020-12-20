@@ -7,9 +7,12 @@ export type Repo = {
   stargazersCount: number;
 }
 
+type PaginationType = 'current' | 'first' | 'prev' | 'next' | 'last';
+
 export type RepoState = {
   organization: string;
   repos: Repo[];
+  pagination: Partial<Record<PaginationType, number>>;
   loading: boolean;
   success: boolean;
   errorMessage: string;

@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^0.21.0",
     "bootstrap": "^4.5.0",
+    "parse-link-header": "^1.0.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.10.1",
+    "@types/parse-link-header": "^1.0.0",
     "@types/react": "^16.9.37",
     "@types/react-bootstrap": "^1.0.1",
     "@types/react-dom": "^16.9.8",
@@ -38,7 +40,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^3.6.0",
     "eslint": "6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "2.20.1",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.19.0",
