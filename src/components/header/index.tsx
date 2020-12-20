@@ -6,7 +6,7 @@ import HeaderWrapper from './style';
 const Header: FC = () => (
   <HeaderWrapper>
     <h3>
-      Github organizations search
+      Github organizations repos search
     </h3>
     <SearchForm />
   </HeaderWrapper>

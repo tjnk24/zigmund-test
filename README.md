@@ -1,4 +1,4 @@
-# Github companies search
+# Github companies' repos search
 
 Стек технологий:
 
