@@ -3,6 +3,7 @@ import { put, takeLatest, all } from 'redux-saga/effects';
 import parseLinks from 'parse-link-header';
 import { REPOS_FETCH_START, REPOS_FETCH_SUCCESS, REPOS_FETCH_ERROR } from '@store/constants';
 import { IGetReposAction, RepoResponse } from '@store/types';
+import { RootSagaReturnType } from './types';
 
 function* fetchRepos(action: IGetReposAction) {
   const { organization, pageNumber, pageLimit } = action.payload;
@@ -59,7 +60,7 @@ function* actionWatcher() {
   yield takeLatest(REPOS_FETCH_START, fetchRepos);
 }
 
-export default function* rootSaga() {
+export default function* rootSaga(): RootSagaReturnType {
   yield all([
     actionWatcher(),
   ]);
