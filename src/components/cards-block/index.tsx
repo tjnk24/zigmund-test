@@ -55,7 +55,7 @@ const CardsBlock: FC = () => {
   return (
     <CardsWrapper>
       {
-        success || repos.length
+        success && repos.length
           ? (
             <>
               <InfoWrapper>

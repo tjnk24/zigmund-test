@@ -25,16 +25,17 @@ const reposReducer = (state = initialState, action: ReposActionTypes): RepoState
       const { organization, repos, pagination } = action.payload;
       return {
         ...state,
+        success: true,
+        loading: false,
         organization,
         repos,
         pagination,
-        success: true,
-        loading: false,
       };
     }
     case REPOS_FETCH_ERROR: {
       return {
         ...state,
+        success: false,
         loading: false,
         errorMessage: 'Sorry, no such company or incorrect company request.',
       };
