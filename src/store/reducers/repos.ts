@@ -11,7 +11,7 @@ const initialState: RepoState = {
   errorMessage: '',
 };
 
-const reposReducer = (state = initialState, action: ReposActionTypes) => {
+const reposReducer = (state = initialState, action: ReposActionTypes): RepoState => {
   switch (action.type) {
     case REPOS_FETCH_START: {
       return {
@@ -30,19 +30,19 @@ const reposReducer = (state = initialState, action: ReposActionTypes) => {
         pagination,
         success: true,
         loading: false,
-      }
+      };
     }
     case REPOS_FETCH_ERROR: {
       return {
         ...state,
         loading: false,
-        errorMessage: 'Sorry, no such company or incorrect company request.'
-      }
+        errorMessage: 'Sorry, no such company or incorrect company request.',
+      };
     }
     default: {
       return state;
     }
   }
-}
+};
 
 export default reposReducer;

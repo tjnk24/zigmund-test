@@ -12,7 +12,7 @@ const PaginationBlock: FC = () => {
     first,
     prev,
     next,
-    last
+    last,
   } = useSelector((state: RepoState) => state.pagination);
 
   const organization = useSelector((state: RepoState) => state.organization);
@@ -20,31 +20,29 @@ const PaginationBlock: FC = () => {
   const dispatch = useDispatch();
 
   const changePage = (page: number) => {
-    dispatch(getRepos(organization, page))
-  }
+    dispatch(getRepos(organization, page));
+  };
 
   return (
     <StyledPagination>
       { first && (
-          <>
-            <Pagination.First onClick={() => changePage(first)}/>
-            <Pagination.Prev onClick={() => changePage(prev)}/>
-          </>
-        )
-      }
+      <>
+        <Pagination.First onClick={() => changePage(first)} />
+        <Pagination.Prev onClick={() => changePage(prev)} />
+      </>
+      )}
       { prev && (
-          <>
-            <Pagination.Ellipsis disabled/>
-            <Pagination.Item onClick={() => changePage(prev)}>{prev}</Pagination.Item>
-          </>
-        )
-      }
+      <>
+        <Pagination.Ellipsis disabled />
+        <Pagination.Item onClick={() => changePage(prev)}>{prev}</Pagination.Item>
+      </>
+      )}
       <Pagination.Item active>{current}</Pagination.Item>
       {
         next && (
           <>
             <Pagination.Item onClick={() => changePage(next)}>{next}</Pagination.Item>
-            <Pagination.Ellipsis disabled/>
+            <Pagination.Ellipsis disabled />
           </>
         )
       }

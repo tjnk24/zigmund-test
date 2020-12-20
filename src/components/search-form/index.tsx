@@ -1,13 +1,14 @@
-import React, { ElementType, FC, PropsWithChildren, useState } from 'react';
+import React, { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Button from 'react-bootstrap/esm/Button';
 import InputGroup from 'react-bootstrap/esm/InputGroup';
 import FormControl from 'react-bootstrap/esm/FormControl';
-import OverlayTrigger from 'react-bootstrap/esm/OverlayTrigger';
-import Tooltip from 'react-bootstrap/esm/Tooltip';
+import { OverlayChildren } from 'react-bootstrap/esm/Overlay';
+import OverlayTrigger, { OverlayInjectedProps } from 'react-bootstrap/esm/OverlayTrigger';
+import Tooltip, { TooltipProps } from 'react-bootstrap/esm/Tooltip';
+import getRepos from '@store/actions/get-repos';
 
 import StyledForm from './style';
-import getRepos from '@store/actions/get-repos';
-import { useDispatch } from 'react-redux';
 
 const pageLimit = 8;
 
@@ -20,7 +21,7 @@ const SearchForm: FC = () => {
     event.preventDefault();
     const input = event.target.elements[0] as HTMLInputElement;
 
-    const value = input.value.trim()
+    const value = input.value.trim();
 
     if (value) {
       dispatch(getRepos(value, 1, pageLimit));
@@ -29,9 +30,9 @@ const SearchForm: FC = () => {
     }
   };
 
-  const renderTooltip = (props: PropsWithChildren<any>) => (
-    <Tooltip {...props}>
-      You must enter organization's name
+  const renderTooltip = (props: OverlayInjectedProps) => (
+    <Tooltip {...props as TooltipProps}>
+      You must enter organization&apos;s name
     </Tooltip>
   );
 
@@ -40,7 +41,7 @@ const SearchForm: FC = () => {
       placement="bottom"
       delay={{ show: 250, hide: 400 }}
       show={showTooltip}
-      overlay={renderTooltip}
+      overlay={renderTooltip as OverlayChildren}
     >
       <StyledForm
         onChange={() => setShowTooltip(false)}

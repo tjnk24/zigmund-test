@@ -8,7 +8,7 @@ function* fetchRepos(action: IGetReposAction) {
   const { organization, pageNumber, pageLimit } = action.payload;
 
   try {
-    const response = yield Axios
+    const fetchResponse = yield Axios
       .get(`https://api.github.com/orgs/${organization}/repos?page=${pageNumber}&per_page=${pageLimit}`)
       .then((response) => {
         const links = parseLinks(response.headers.link);
@@ -21,14 +21,16 @@ function* fetchRepos(action: IGetReposAction) {
             prev: links.prev?.page || null,
             next: links.next?.page || null,
             last: links.last?.page || null,
-          }
+          },
         };
       });
 
-    const { repos, pagination } = response;
+    const { repos, pagination } = fetchResponse;
+
+    let filteredRepos = [];
 
     if (repos.length) {
-      repos.map((repo: RepoResponse) => ({
+      filteredRepos = repos.map((repo: RepoResponse) => ({
         id: repo.id,
         name: repo.name,
         url: repo.html_url,
@@ -36,18 +38,17 @@ function* fetchRepos(action: IGetReposAction) {
         watchersCount: repo.watchers_count,
         stargazersCount: repo.stargazers_count,
       }));
-    }
 
-    yield put({
-      type: REPOS_FETCH_SUCCESS,
-      payload: {
-        organization,
-        pagination,
-        repos,
-      },
-    });
-  }
-  catch {
+      yield put({
+        type: REPOS_FETCH_SUCCESS,
+        payload: {
+          organization,
+          pagination,
+          repos: filteredRepos,
+        },
+      });
+    }
+  } catch {
     yield put({
       type: REPOS_FETCH_ERROR,
     });

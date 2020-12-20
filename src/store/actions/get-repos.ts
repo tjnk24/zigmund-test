@@ -4,13 +4,13 @@ import { ReposActionTypes } from '@store/types';
 const getRepos = (
   organization: string,
   pageNumber: number,
-  pageLimit = 8
+  pageLimit = 8,
 ): ReposActionTypes => ({
   type: REPOS_FETCH_START,
   payload: {
     organization,
     pageNumber,
-    pageLimit
+    pageLimit,
   },
 });
 

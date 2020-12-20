@@ -1,4 +1,4 @@
-import { Repo, RepoState } from '@common/types';
+import { RepoState } from '@common/types';
 import { REPOS_FETCH_ERROR, REPOS_FETCH_START, REPOS_FETCH_SUCCESS } from './constants';
 
 export interface IGetReposAction {

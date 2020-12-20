@@ -21,10 +21,13 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+        'camelcase': 'off',
         'jsx-a11y/no-static-element-interactions': 'off',
         'import/no-dynamic-require': 'off',
+        'import/no-unresolved': 'off',
         'import/extensions': 'off',
         'react/prop-types': 'off',
+        'react/jsx-props-no-spreading': 'off',
         'react/jsx-filename-extension': [
             'error',
             {

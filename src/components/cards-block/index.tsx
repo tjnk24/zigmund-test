@@ -8,7 +8,7 @@ import { Repo, RepoState } from '@common/types';
 import { CardsWrapper, InfoWrapper, Placeholder } from './style';
 
 const CardsBlock: FC = () => {
-  const state = useSelector((state: RepoState) => state);
+  const repoState = useSelector((state: RepoState) => state);
 
   const {
     loading,
@@ -16,30 +16,32 @@ const CardsBlock: FC = () => {
     errorMessage,
     organization,
     repos,
-  } = state;
+  } = repoState;
 
   const getPlaceholder = (isLoading: boolean, error: string, reposArr: Repo[]) => {
     if (isLoading && !reposArr.length) {
-      return <Spinner animation="border"/>
+      return <Spinner animation="border" />;
     }
     if (error) {
-      return <div>{error}</div>
+      return <div>{error}</div>;
     }
     if (!reposArr.length) {
       return (
         <div>
-          Type in organization's name in the field above,
+          Type in organization&apos;s name in the field above,
           for example: facebook or airbnb
         </div>
-        )
+      );
     }
-  }
+
+    return null;
+  };
 
   const getOrganizationName = (name: string) => {
     const firstLetter = name.charAt(0);
 
     return name.replace(firstLetter, firstLetter.toUpperCase());
-  }
+  };
 
   const mapCards = (reposArray: Repo[]) => reposArray.map(
     (repo) => (
@@ -47,28 +49,29 @@ const CardsBlock: FC = () => {
         key={repo.id}
         {...repo}
       />
-    ))
+    ),
+  );
 
   return (
     <CardsWrapper>
       {
         success || repos.length
-        ? (
-          <>
-            <InfoWrapper>
-              <h3>{ getOrganizationName(organization) }</h3>
-            </InfoWrapper>
-            { mapCards(repos) }
-            <PaginationBlock />
-          </>
-        ) : (
-          <Placeholder>
-            { getPlaceholder(loading, errorMessage, repos) }
-          </Placeholder>
-        )
+          ? (
+            <>
+              <InfoWrapper>
+                <h3>{ getOrganizationName(organization) }</h3>
+              </InfoWrapper>
+              { mapCards(repos) }
+              <PaginationBlock />
+            </>
+          ) : (
+            <Placeholder>
+              { getPlaceholder(loading, errorMessage, repos) }
+            </Placeholder>
+          )
       }
     </CardsWrapper>
   );
-}
+};
 
 export default CardsBlock;
